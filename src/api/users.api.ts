@@ -1,20 +1,20 @@
 import { client } from "./client";
-import type { Role, UserEditData, UserListItem } from "../types/user";
-
-export type CreateUserPayload = {
-  name: string;
-  email: string;
-  password: string;
-  role_id: number | "";
-  direct_permission_slugs: string[];
-};
+import type {
+  CreateUserPayload,
+  Role,
+  UpdateUserPayload,
+  UserEditData,
+  UserListItem,
+} from "../types/user";
 
 export const getUsersApi = async (): Promise<UserListItem[]> => {
   const response = await client.get("/admin/users");
   return response.data;
 };
 
-export const getUserEditDataApi = async (userId: number): Promise<UserEditData> => {
+export const getUserEditDataApi = async (
+  userId: number,
+): Promise<UserEditData> => {
   const response = await client.get(`/admin/users/${userId}`);
   return response.data;
 };
@@ -24,15 +24,9 @@ export const createUserApi = async (payload: CreateUserPayload) => {
   return response.data;
 };
 
-
 export const updateUserApi = async (
   userId: number,
-  payload: {
-    name: string;
-    email: string;
-    role_id: number | "";
-    direct_permission_slugs: string[];
-  }
+  payload: UpdateUserPayload,
 ) => {
   const response = await client.put(`/admin/users/${userId}`, payload);
   return response.data;
@@ -44,7 +38,9 @@ export const deleteUserApi = async (userId: number) => {
 };
 
 export const getAssignablePermissionsByRoleApi = async (roleId: number) => {
-  const response = await client.get(`/admin/roles/${roleId}/assignable-permissions`);
+  const response = await client.get(
+    `/admin/roles/${roleId}/assignable-permissions`,
+  );
   return response.data;
 };
 

@@ -34,6 +34,21 @@ export type UserEditData = {
   assignable_permissions: Permission[];
 };
 
+export type CreateUserPayload = {
+  name: string;
+  email: string;
+  password: string;
+  role_id: number | "";
+  direct_permission_slugs: string[];
+};
+
+export type UpdateUserPayload = {
+  name: string;
+  email: string;
+  role_id: number | "";
+  direct_permission_slugs: string[];
+};
+
 export type LoginResponse = {
   token: string;
   token_type: string;
