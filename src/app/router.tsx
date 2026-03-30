@@ -5,12 +5,10 @@ import RequireRole from "../auth/RequireRole";
 import MainLayout from "../layouts/MainLayout";
 import LoginPage from "../pages/auth/LoginPage";
 
+import UsersPage from "../pages/admin/UsersPage";
+
 function HomePage() {
   return <div>Welcome</div>;
-}
-
-function UsersPage() {
-  return <div>Admin Users Page</div>;
 }
 
 function MealsPage() {
