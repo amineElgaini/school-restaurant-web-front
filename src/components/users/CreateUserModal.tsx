@@ -8,6 +8,7 @@ import {
   createUserApi,
   getAssignablePermissionsByRoleApi,
 } from "../../api/users.api";
+import toast from "react-hot-toast";
 
 type Props = {
   open: boolean;
@@ -80,6 +81,7 @@ export default function CreateUserModal({
         role_id: roleId,
         direct_permission_slugs: selectedPermissions,
       });
+      toast.success("User  created successfully.");
 
       await onSuccess();
       onClose();

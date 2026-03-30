@@ -13,6 +13,7 @@ import Button from "../../components/ui/Button";
 import CreateUserModal from "../../components/users/CreateUserModal";
 import { getRolesApi } from "../../api/users.api";
 import type { Role } from "../../types/user";
+import toast from "react-hot-toast";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<UserListItem[]>([]);
@@ -78,6 +79,7 @@ export default function UsersPage() {
       await deleteUserApi(userId);
 
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+      toast.success("User deleted successfully.");
     } catch (error) {
       console.error("Delete user failed:", error);
     }
@@ -92,8 +94,8 @@ export default function UsersPage() {
     if (!selectedUser) return;
 
     try {
-      console.log(payload);
       await updateUserApi(selectedUser.id, payload);
+      toast.success("User updated successfully.");
       await fetchUsers();
     } catch (error) {
       console.error("Failed to update user", error);
@@ -123,7 +125,11 @@ export default function UsersPage() {
       {loading ? (
         <p>Loading users...</p>
       ) : (
-        <UsersTable users={users} onEdit={handleEdit} onDelete={handleDeleteUser} />
+        <UsersTable
+          users={users}
+          onEdit={handleEdit}
+          onDelete={handleDeleteUser}
+        />
       )}
 
       <UpdateUserModal
