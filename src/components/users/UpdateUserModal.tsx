@@ -75,9 +75,6 @@ export default function UpdateUserModal({
     e.preventDefault();
     setIsSubmitting(true);
 
-    console.log(selectedPermissions);
-    console.log(roleId);
-
     try {
       await onSubmit({
         name,

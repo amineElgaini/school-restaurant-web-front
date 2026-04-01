@@ -4,6 +4,7 @@ import RequirePermission from "../auth/RequirePermission";
 import RequireRole from "../auth/RequireRole";
 import MainLayout from "../layouts/MainLayout";
 import LoginPage from "../pages/auth/LoginPage";
+import ReservationPage from "../pages/student/ReservationPage";
 
 import UsersPage from "../pages/admin/UsersPage";
 
@@ -23,9 +24,9 @@ function ReservationsPage() {
   return <div>Staff Reservations Page</div>;
 }
 
-function StudentReservationPage() {
-  return <div>Student Reservation Page</div>;
-}
+// function ReservationPage() {
+//   return <div>Student Reservation Page</div>;
+// }
 
 function ComplaintsPage() {
   return <div>Student Complaints Page</div>;
@@ -89,7 +90,7 @@ export const router = createBrowserRouter([
             children: [
               {
                 path: "/student/reservations",
-                element: <StudentReservationPage />,
+                element: <ReservationPage />,
               },
             ],
           },

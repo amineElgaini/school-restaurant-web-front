@@ -30,7 +30,7 @@ export default function Navbar() {
         )}
 
         {hasPermission(user, "reserve_meals") && (
-          <Link to="/student/reservations">My Meals</Link>
+          <Link to="/student/reservations">My Reservation</Link>
         )}
 
         {hasPermission(user, "submit_complaints") && (
