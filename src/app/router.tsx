@@ -7,13 +7,10 @@ import LoginPage from "../pages/auth/LoginPage";
 import ReservationPage from "../pages/student/ReservationPage";
 
 import UsersPage from "../pages/admin/UsersPage";
+import MealsPage from "../pages/staff/MealsPage";
 
 function HomePage() {
   return <div>Welcome</div>;
-}
-
-function MealsPage() {
-  return <div>Staff Meals Page</div>;
 }
 
 function MenuPage() {
@@ -23,10 +20,6 @@ function MenuPage() {
 function ReservationsPage() {
   return <div>Staff Reservations Page</div>;
 }
-
-// function ReservationPage() {
-//   return <div>Student Reservation Page</div>;
-// }
 
 function ComplaintsPage() {
   return <div>Student Complaints Page</div>;
