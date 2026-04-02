@@ -14,7 +14,10 @@ export default function Navbar() {
         <Link to="/">Home</Link>
 
         {hasRole(user, "admin") && (
-          <Link to="/admin/users">Users</Link>
+          <>
+            <Link to="/admin/users">Users</Link>
+            <Link to="/student/complaints">Complaints</Link>
+          </>
         )}
 
         {hasPermission(user, "manage_meals") && (
@@ -31,10 +34,6 @@ export default function Navbar() {
 
         {hasPermission(user, "reserve_meals") && (
           <Link to="/student/reservations">My Reservation</Link>
-        )}
-
-        {hasPermission(user, "submit_complaints") && (
-          <Link to="/student/complaints">Complaints</Link>
         )}
       </nav>
 

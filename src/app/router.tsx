@@ -8,21 +8,12 @@ import ReservationPage from "../pages/student/ReservationPage";
 
 import UsersPage from "../pages/admin/UsersPage";
 import MealsPage from "../pages/staff/MealsPage";
+import MenuPage from "../pages/staff/MenuPage";
+import ReservationsPage from "../pages/staff/ReservationsPage";
+import ComplaintsPage from "../pages/complaints/ComplaintsPage";
 
 function HomePage() {
   return <div>Welcome</div>;
-}
-
-function MenuPage() {
-  return <div>Staff Menu Page</div>;
-}
-
-function ReservationsPage() {
-  return <div>Staff Reservations Page</div>;
-}
-
-function ComplaintsPage() {
-  return <div>Student Complaints Page</div>;
 }
 
 export const router = createBrowserRouter([
@@ -47,6 +38,10 @@ export const router = createBrowserRouter([
               {
                 path: "/admin/users",
                 element: <UsersPage />,
+              },
+              {
+                path: "/student/complaints",
+                element: <ComplaintsPage />,
               },
             ],
           },
@@ -87,15 +82,15 @@ export const router = createBrowserRouter([
               },
             ],
           },
-          {
-            element: <RequirePermission permission="submit_complaints" />,
-            children: [
-              {
-                path: "/student/complaints",
-                element: <ComplaintsPage />,
-              },
-            ],
-          },
+          // {
+          //   element: <RequirePermission permission="submit_complaints" />,
+          //   children: [
+          //     {
+          //       path: "/student/complaints",
+          //       element: <ComplaintsPage />,
+          //     },
+          //   ],
+          // },
         ],
       },
     ],

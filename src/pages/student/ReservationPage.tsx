@@ -13,7 +13,9 @@ import { getMenuMealsByDateApi } from "../../api/menuMeals.api";
 import type { MenuMeal, Reservation } from "../../types/reservation";
 
 export default function ReservationPage() {
-  const [date, setDate] = useState(() => new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    () => new Date().toISOString().split("T")[0],
+  );
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [menuMeals, setMenuMeals] = useState<MenuMeal[]>([]);
   const [loading, setLoading] = useState(false);
@@ -43,15 +45,15 @@ export default function ReservationPage() {
 
   const reservedMenuMealIds = useMemo(
     () => reservations.map((reservation) => reservation.menu_meal.id),
-    [reservations]
+    [reservations],
   );
 
   const reservedMealTypeIds = useMemo(
     () =>
       reservations.map(
-        (reservation) => reservation.menu_meal.meal.meal_type_id
+        (reservation) => reservation.menu_meal.meal.meal_type_id,
       ),
-    [reservations]
+    [reservations],
   );
 
   const handleReserve = async (menuMealId: number) => {
@@ -72,7 +74,10 @@ export default function ReservationPage() {
     }
   };
 
-  const handleSubmitComplaint = async (subject: string, description: string) => {
+  const handleSubmitComplaint = async (
+    subject: string,
+    description: string,
+  ) => {
     try {
       await submitComplaintApi({ subject, description });
     } catch (error) {
@@ -117,16 +122,18 @@ export default function ReservationPage() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {menuMeals.map((menuMeal) => {
-              const alreadyReservedExact = reservedMenuMealIds.includes(menuMeal.id);
-              const alreadyReservedSameType = reservedMealTypeIds.includes(
-                menuMeal.meal.meal_type_id
+              const isExactReserved = reservedMenuMealIds.includes(menuMeal.id);
+
+              const isSameTypeReserved = reservedMealTypeIds.includes(
+                menuMeal.meal.meal_type_id,
               );
 
               return (
                 <MealCard
                   key={menuMeal.id}
                   menuMeal={menuMeal}
-                  reserved={alreadyReservedExact || alreadyReservedSameType}
+                  isExactReserved={isExactReserved}
+                  isSameTypeReserved={isSameTypeReserved}
                   onReserve={handleReserve}
                 />
               );
