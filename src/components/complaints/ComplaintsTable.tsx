@@ -15,7 +15,7 @@ export default function ComplaintsTable({ complaints }: Props) {
             <th className="p-3 border-b">Email</th>
             <th className="p-3 border-b">Subject</th>
             <th className="p-3 border-b">Description</th>
-            <th className="p-3 border-b">Status</th>
+            {/* <th className="p-3 border-b">Status</th> */}
             <th className="p-3 border-b">Created At</th>
           </tr>
         </thead>
@@ -39,7 +39,7 @@ export default function ComplaintsTable({ complaints }: Props) {
                 </td>
                 <td className="p-3 border-b">{complaint.subject ?? "-"}</td>
                 <td className="p-3 border-b">{complaint.description}</td>
-                <td className="p-3 border-b">{complaint.status ?? "-"}</td>
+                {/* <td className="p-3 border-b">{complaint.status ?? "-"}</td> */}
                 <td className="p-3 border-b">
                   {new Date(complaint.created_at).toLocaleString()}
                 </td>
