@@ -1,16 +1,16 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import RequirePermission from "../auth/RequirePermission";
 import RequireRole from "../auth/RequireRole";
 import MainLayout from "../layouts/MainLayout";
 import LoginPage from "../pages/auth/LoginPage";
 import ReservationPage from "../pages/student/ReservationPage";
-
 import UsersPage from "../pages/admin/UsersPage";
 import MealsPage from "../pages/staff/MealsPage";
 import MenuPage from "../pages/staff/MenuPage";
 import ReservationsPage from "../pages/staff/ReservationsPage";
 import ComplaintsPage from "../pages/complaints/ComplaintsPage";
+import HomeRedirect from "./HomeRedirect";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            // element: <HomePage />,
+            element: <HomeRedirect />,
           },
 
           {
@@ -34,10 +34,6 @@ export const router = createBrowserRouter([
               {
                 path: "/admin/users",
                 element: <UsersPage />,
-              },
-              {
-                path: "/admin/complaints",
-                element: <ComplaintsPage />,
               },
             ],
           },
@@ -77,6 +73,20 @@ export const router = createBrowserRouter([
                 element: <ReservationPage />,
               },
             ],
+          },
+          {
+            element: <RequirePermission permission="submit_complaints" />,
+            children: [
+              {
+                path: "/student/complaints",
+                element: <ComplaintsPage />,
+              },
+            ],
+          },
+
+          {
+            path: "*",
+            element: <HomeRedirect />,
           },
         ],
       },

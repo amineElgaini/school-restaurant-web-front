@@ -13,11 +13,11 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   const navItems: NavItem[] = [
-    {
-      to: "/",
-      label: "Home",
-      show: true,
-    },
+    // {
+    //   to: "/",
+    //   label: "Home",
+    //   show: true,
+    // },
     {
       to: "/admin/users",
       label: "Users",
