@@ -12,10 +12,6 @@ import MenuPage from "../pages/staff/MenuPage";
 import ReservationsPage from "../pages/staff/ReservationsPage";
 import ComplaintsPage from "../pages/complaints/ComplaintsPage";
 
-function HomePage() {
-  return <div>Welcome</div>;
-}
-
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -29,7 +25,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <HomePage />,
+            // element: <HomePage />,
           },
 
           {
@@ -40,7 +36,7 @@ export const router = createBrowserRouter([
                 element: <UsersPage />,
               },
               {
-                path: "/student/complaints",
+                path: "/admin/complaints",
                 element: <ComplaintsPage />,
               },
             ],
@@ -82,15 +78,6 @@ export const router = createBrowserRouter([
               },
             ],
           },
-          // {
-          //   element: <RequirePermission permission="submit_complaints" />,
-          //   children: [
-          //     {
-          //       path: "/student/complaints",
-          //       element: <ComplaintsPage />,
-          //     },
-          //   ],
-          // },
         ],
       },
     ],
