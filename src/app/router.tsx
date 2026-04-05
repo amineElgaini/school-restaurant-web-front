@@ -10,7 +10,7 @@ import MealsPage from "../pages/staff/MealsPage";
 import MenuPage from "../pages/staff/MenuPage";
 import ReservationsPage from "../pages/staff/ReservationsPage";
 import ComplaintsPage from "../pages/complaints/ComplaintsPage";
-import HomeRedirect from "./HomeRedirect";
+import HomeRedirect from "./HomeRedirect.tsx";
 
 export const router = createBrowserRouter([
   {
