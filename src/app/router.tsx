@@ -9,7 +9,7 @@ import UsersPage from "../pages/admin/UsersPage";
 import MealsPage from "../pages/staff/MealsPage";
 import MenuPage from "../pages/staff/MenuPage";
 import ReservationsPage from "../pages/staff/ReservationsPage";
-import ComplaintsPage from "../pages/complaints/ComplaintsPage";
+import ComplaintsPage from "../pages/admin/ComplaintsPage.tsx";
 import HomeRedirect from "./HomeRedirect.tsx";
 
 export const router = createBrowserRouter([
@@ -34,6 +34,10 @@ export const router = createBrowserRouter([
               {
                 path: "/admin/users",
                 element: <UsersPage />,
+              },
+              {
+                path: "/admin/complaints",
+                element: <ComplaintsPage />,
               },
             ],
           },
