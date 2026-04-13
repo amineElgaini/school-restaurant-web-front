@@ -13,11 +13,6 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   const navItems: NavItem[] = [
-    // {
-    //   to: "/",
-    //   label: "Home",
-    //   show: true,
-    // },
     {
       to: "/admin/users",
       label: "Users",
@@ -51,17 +46,22 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-10">
           <NavLink
             to="/"
-            className="text-xl font-bold tracking-tight text-slate-800"
+            className="group flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-900"
           >
-            Cafeteria
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-600 text-white shadow-lg shadow-primary-500/20 group-hover:scale-105 transition-transform duration-200">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </div>
+            <span className="hidden sm:inline font-display">Cafeteria</span>
           </NavLink>
 
-          <nav className="hidden items-center gap-2 md:flex">
+          <nav className="hidden items-center gap-1 lg:flex">
             {navItems
               .filter((item) => item.show)
               .map((item) => (
@@ -69,10 +69,10 @@ export default function Navbar() {
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `rounded-lg px-4 py-2 text-sm font-medium transition ${
+                    `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
                       isActive
-                        ? "bg-slate-900 text-white"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                        ? "bg-primary-50 text-primary-700"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }`
                   }
                 >
@@ -82,24 +82,38 @@ export default function Navbar() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           {user && (
-            <div className="hidden rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-right sm:block">
-              <p className="text-sm font-semibold text-slate-800">{user.name}</p>
-              <p className="text-xs capitalize text-slate-500">
-                {user.role?.name || "No role"}
-              </p>
+            <div className="hidden items-center gap-3 lg:flex">
+              <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold border border-slate-200">
+                {user.name?.charAt(0).toUpperCase()}
+              </div>
+              <div className="text-left">
+                <p className="text-sm font-bold text-slate-900 leading-none">{user.name}</p>
+                <p className="mt-1 text-xs font-medium capitalize text-slate-500">
+                  {user.role?.name || "Student"}
+                </p>
+              </div>
             </div>
           )}
 
-          <Button variant="secondary" onClick={logout}>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={logout}
+            className="text-slate-500 hover:text-red-600 hover:bg-red-50"
+          >
+            <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
             Logout
           </Button>
         </div>
       </div>
 
-      <div className="border-t border-slate-100 px-4 py-3 md:hidden">
-        <nav className="flex flex-wrap gap-2">
+      {/* Mobile Nav */}
+      <div className="overflow-x-auto border-t border-slate-100 px-4 py-3 lg:hidden">
+        <nav className="flex items-center gap-2 whitespace-nowrap">
           {navItems
             .filter((item) => item.show)
             .map((item) => (
@@ -107,10 +121,10 @@ export default function Navbar() {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `rounded-lg px-3 py-2 text-sm font-medium transition ${
+                  `rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 ${
                     isActive
-                      ? "bg-slate-900 text-white"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      ? "bg-primary-600 text-white shadow-md shadow-primary-500/20"
+                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
                   }`
                 }
               >

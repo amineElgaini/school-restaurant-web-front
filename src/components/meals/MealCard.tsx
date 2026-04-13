@@ -1,5 +1,6 @@
 import Button from "../ui/Button";
 import Card from "../ui/Card";
+import Badge from "../ui/Badge";
 import type { MenuMeal } from "../../types/reservation";
 
 type Props = {
@@ -16,42 +17,70 @@ export default function MealCard({
   onReserve,
 }: Props) {
   const meal = menuMeal.meal;
-  const mealType = meal.meal_type?.name || "Unknown type";
+  const mealType = meal.meal_type?.name || "Main Course";
 
-  let buttonText = "Reserve";
+  let statusBadge = null;
   let disabled = false;
-  let variant: "primary" | "danger" | "secondary" = "primary";
+  let buttonText = "Reserve Now";
 
   if (isExactReserved) {
+    statusBadge = <Badge variant="success">Reserved</Badge>;
+    disabled = true;
     buttonText = "Reserved";
-    variant = "secondary";
-    disabled = true;
   } else if (isSameTypeReserved) {
-    buttonText = "Same type already reserved";
-    variant = "secondary";
+    statusBadge = <Badge variant="warning">Type Limit Reached</Badge>;
     disabled = true;
+    buttonText = "Already Reserved Same Type";
   }
 
   return (
-    <Card>
-      <div className="space-y-3">
-        <div>
-          <h3 className="text-lg font-semibold">{meal.name}</h3>
-          <p className="text-sm text-gray-500">{mealType}</p>
+    <Card hover className="flex flex-col h-full group">
+      {/* Decorative Placeholder for Image */}
+      <div className="h-40 w-full bg-slate-100 flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-accent-food/5" />
+        <svg className="h-16 w-16 text-slate-200 group-hover:scale-110 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        
+        <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+          <Badge variant="info">{mealType}</Badge>
+          {statusBadge}
+        </div>
+      </div>
 
-          {meal.description && (
-            <p className="mt-2 text-sm text-gray-700">{meal.description}</p>
+      <div className="flex flex-col flex-1 p-5">
+        <div className="flex-1">
+          <div className="flex items-start justify-between mb-2">
+            <h3 className="text-xl font-bold text-slate-900 leading-tight">
+              {meal.name}
+            </h3>
+          </div>
+          
+          {meal.description ? (
+            <p className="text-sm text-slate-500 line-clamp-3 mb-4">
+              {meal.description}
+            </p>
+          ) : (
+            <p className="text-sm italic text-slate-400 mb-4">
+              No description available for this delicious meal.
+            </p>
           )}
         </div>
 
-        <Button
-          onClick={() => onReserve(menuMeal.id)}
-          disabled={disabled}
-          variant={variant}
-          className="w-full"
-        >
-          {buttonText}
-        </Button>
+        <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between gap-4">
+          <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            Available today
+          </div>
+          <Button
+            onClick={() => onReserve(menuMeal.id)}
+            disabled={disabled}
+            variant={isExactReserved || isSameTypeReserved ? "secondary" : "primary"}
+            size="md"
+            className="flex-shrink-0"
+          >
+            {buttonText}
+          </Button>
+        </div>
       </div>
     </Card>
   );

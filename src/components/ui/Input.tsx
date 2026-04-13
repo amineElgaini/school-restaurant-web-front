@@ -12,15 +12,33 @@ export default function Input({
   ...props
 }: InputProps) {
   return (
-    <div className="w-full space-y-1">
-      {label && <label className="block text-sm font-medium text-gray-700">{label}</label>}
+    <div className="w-full space-y-2">
+      {label && (
+        <label className="block text-sm font-semibold text-slate-700 ml-1">
+          {label}
+        </label>
+      )}
 
-      <input
-        className={`w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
-        {...props}
-      />
+      <div className="relative group">
+        <input
+          className={`
+            w-full rounded-xl border border-slate-200 bg-white px-4 py-3 
+            text-slate-900 placeholder:text-slate-400
+            transition-all duration-200 outline-none
+            hover:border-slate-300
+            focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10
+            ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500/10" : ""}
+            ${className}
+          `}
+          {...props}
+        />
+      </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p className="text-xs font-medium text-red-600 ml-1 animate-in fade-in slide-in-from-top-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
