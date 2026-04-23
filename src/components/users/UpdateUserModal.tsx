@@ -16,6 +16,7 @@ type Props = {
     name: string;
     email: string;
     role_id: number | "";
+    image?: File | null;
     direct_permission_slugs: string[];
   }) => Promise<void>;
 };
@@ -32,6 +33,8 @@ export default function UpdateUserModal({
   const [roleId, setRoleId] = useState<number | "">("");
   const [assignablePermissions, setAssignablePermissions] = useState<Permission[]>([]);
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -42,7 +45,8 @@ export default function UpdateUserModal({
     setRoleId(data.user.role?.id ?? "");
     setAssignablePermissions(data.assignable_permissions);
     setSelectedPermissions(data.direct_permissions);
-
+    setImage(null);
+    setImagePreview(data.user.image);
   }, [data]);
 
   const handleRoleChange = async (value: string) => {
@@ -72,6 +76,18 @@ export default function UpdateUserModal({
     );
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -81,6 +97,7 @@ export default function UpdateUserModal({
         name,
         email,
         role_id: roleId,
+        image,
         direct_permission_slugs: selectedPermissions,
       });
       onClose();
@@ -121,6 +138,53 @@ export default function UpdateUserModal({
               placeholder="john@example.com"
               required
             />
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-sm font-bold text-slate-700">Profile Picture</label>
+            <div className="flex items-center gap-6 p-4 rounded-2xl border border-slate-200 bg-slate-50/30">
+              <div className="h-20 w-20 rounded-full border-4 border-white shadow-md overflow-hidden bg-slate-100 flex-shrink-0">
+                {imagePreview ? (
+                  <img src={imagePreview} className="h-full w-full object-cover" />
+                ) : (
+                  <div className="h-full w-full flex items-center justify-center text-slate-300">
+                    <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 space-y-2">
+                <input
+                  type="file"
+                  id="edit-user-image"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+                <div className="flex items-center gap-3">
+                  <label 
+                    htmlFor="edit-user-image"
+                    className="inline-flex items-center px-4 py-2 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-700 hover:bg-slate-50 cursor-pointer transition-all shadow-sm"
+                  >
+                    Change Photo
+                  </label>
+                  {image && (
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        setImage(null);
+                        setImagePreview(data?.user.image || null);
+                      }}
+                      className="text-xs font-bold text-red-500 hover:text-red-600"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+                <p className="text-xs text-slate-400">Upload a new photo (max 2MB). Recommended: Square aspect ratio.</p>
+              </div>
+            </div>
           </div>
 
           <Select

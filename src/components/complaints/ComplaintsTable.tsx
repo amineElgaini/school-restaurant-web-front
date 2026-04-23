@@ -39,8 +39,14 @@ export default function ComplaintsTable({ complaints }: Props) {
                 <tr key={complaint.id} className="hover:bg-slate-50/50 transition-colors duration-150 group">
                   <td className="whitespace-nowrap px-6 py-5">
                     <div className="flex items-center gap-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 font-bold border-2 border-white shadow-sm group-hover:bg-primary-50 group-hover:text-primary-700 transition-colors">
-                        {complaint.user?.name?.charAt(0).toUpperCase() || "?"}
+                      <div className="relative h-10 w-10 flex-shrink-0 rounded-full bg-slate-100 overflow-hidden border border-slate-200 group-hover:bg-primary-50 transition-colors">
+                        {complaint.user?.image ? (
+                          <img src={complaint.user.image} alt={complaint.user.name} className="h-full w-full object-cover" />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-slate-600 font-bold group-hover:text-primary-700">
+                            {complaint.user?.name?.charAt(0).toUpperCase() || "?"}
+                          </div>
+                        )}
                       </div>
                       <div className="flex flex-col">
                         <span className="text-sm font-bold text-slate-900">{complaint.user?.name || "Unknown User"}</span>

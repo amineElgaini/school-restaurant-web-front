@@ -62,7 +62,7 @@ export default function UserReservationDetailsModal({
           <div className="flex items-center gap-5 p-5 rounded-3xl bg-slate-50 border border-slate-100">
              {user.image ? (
                 <img
-                  src={`http://localhost:8000/storage/${user.image}`}
+                  src={user.image}
                   alt={user.name}
                   className="h-14 w-14 rounded-full border-2 border-white object-cover shadow-sm"
                 />

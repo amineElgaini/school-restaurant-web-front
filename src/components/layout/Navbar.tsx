@@ -93,8 +93,16 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           {user && (
             <div className="hidden items-center gap-3 lg:flex">
-              <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold border border-slate-200">
-                {user.name?.charAt(0).toUpperCase()}
+              <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold border border-slate-200 overflow-hidden">
+                  {user.image ? (
+                    <img
+                      src={user.image}
+                      alt={user.name}
+                      className="h-11 w-11 rounded-full border-2 border-white object-cover shadow-sm"
+                    />
+                  ) : (
+                    user.name?.charAt(0).toUpperCase()
+                )}
               </div>
               <div className="text-left">
                 <p className="text-sm font-bold text-slate-900 leading-none">

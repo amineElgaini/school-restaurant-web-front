@@ -31,7 +31,7 @@ export default function UsersReservationTable({ users, onDetails }: Props) {
                 <div className="flex items-center gap-4">
                   {user.image ? (
                     <img
-                      src={`http://localhost:8000/storage/${user.image}`}
+                      src={user.image}
                       alt={user.name}
                       className="h-11 w-11 rounded-full border-2 border-white object-cover shadow-sm"
                     />

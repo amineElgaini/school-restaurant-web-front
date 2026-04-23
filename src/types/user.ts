@@ -39,6 +39,7 @@ export type CreateUserPayload = {
   email: string;
   password: string;
   role_id: number | "";
+  image?: File | null;
   direct_permission_slugs: string[];
 };
 
@@ -46,6 +47,7 @@ export type UpdateUserPayload = {
   name: string;
   email: string;
   role_id: number | "";
+  image?: File | null;
   direct_permission_slugs: string[];
 };
 
