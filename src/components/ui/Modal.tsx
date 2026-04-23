@@ -20,7 +20,7 @@ export default function Modal({ isOpen, title, children, onClose }: ModalProps) 
       />
       
       {/* Modal Content */}
-      <Card className="relative w-full max-w-lg shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+      <Card className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl animate-in fade-in zoom-in-95 duration-300">
         <div className="flex items-center justify-between border-b border-slate-100 p-6">
           <h2 className="text-xl font-bold text-slate-900">{title}</h2>
           <button

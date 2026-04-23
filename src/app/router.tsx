@@ -10,6 +10,7 @@ import MealsPage from "../pages/staff/MealsPage";
 import MenuPage from "../pages/staff/MenuPage";
 import ReservationsPage from "../pages/staff/ReservationsPage";
 import ComplaintsPage from "../pages/admin/ComplaintsPage.tsx";
+import StatisticsPage from "../pages/admin/StatisticsPage.tsx";
 import HomeRedirect from "./HomeRedirect.tsx";
 
 export const router = createBrowserRouter([
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
               {
                 path: "/admin/complaints",
                 element: <ComplaintsPage />,
+              },
+              {
+                path: "/admin/statistics",
+                element: <StatisticsPage />,
               },
             ],
           },

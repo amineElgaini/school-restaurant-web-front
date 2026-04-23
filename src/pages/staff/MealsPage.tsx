@@ -15,6 +15,7 @@ export default function MealsPage() {
   const [mealTypes, setMealTypes] = useState<MealType[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [editingMeal, setEditingMeal] = useState<Meal | null>(null);
 
   const fetchMeals = async () => {
     try {
@@ -57,6 +58,16 @@ export default function MealsPage() {
     }
   };
 
+  const handleEditMeal = (meal: Meal) => {
+    setEditingMeal(meal);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setEditingMeal(null);
+  };
+
   return (
     <div className="space-y-10">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-8">
@@ -71,7 +82,7 @@ export default function MealsPage() {
 
         <Button 
           size="lg" 
-          onClick={() => setModalOpen(true)}
+          onClick={() => { setEditingMeal(null); setModalOpen(true); }}
           className="shadow-md shadow-primary-500/20"
         >
           <svg className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,7 +111,7 @@ export default function MealsPage() {
             <Button 
               variant="outline" 
               className="mt-8"
-              onClick={() => setModalOpen(true)}
+              onClick={() => { setEditingMeal(null); setModalOpen(true); }}
             >
               Add First Meal
             </Button>
@@ -112,6 +123,7 @@ export default function MealsPage() {
                 key={meal.id}
                 meal={meal}
                 onDelete={handleDeleteMeal}
+                onEdit={handleEditMeal}
               />
             ))}
           </div>
@@ -120,8 +132,9 @@ export default function MealsPage() {
 
       <AddMealModal
         isOpen={modalOpen}
+        meal={editingMeal}
         mealTypes={mealTypes}
-        onClose={() => setModalOpen(false)}
+        onClose={handleCloseModal}
         onSuccess={fetchMeals}
       />
     </div>

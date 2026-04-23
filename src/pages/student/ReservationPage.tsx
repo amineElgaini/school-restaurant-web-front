@@ -12,11 +12,12 @@ import {
 } from "../../api/student.api.ts";
 import { getMenuMealsByDateApi } from "../../api/menuMeals.api";
 import type { MenuMeal, Reservation } from "../../types/reservation";
+import { getNextWeekWorkDays } from "../../utils/date";
+import DaySelector from "../../components/menu/DaySelector";
 
 export default function ReservationPage() {
-  const [date, setDate] = useState(
-    () => new Date().toISOString().split("T")[0],
-  );
+  const dayOptions = useMemo(() => getNextWeekWorkDays(), []);
+  const [date, setDate] = useState(dayOptions[0]?.value ?? "");
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [menuMeals, setMenuMeals] = useState<MenuMeal[]>([]);
   const [loading, setLoading] = useState(false);
@@ -101,17 +102,11 @@ export default function ReservationPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
-          <div className="relative group">
-            <span className="absolute -top-3 left-3 bg-white px-1 text-xs font-bold text-slate-400 group-focus-within:text-primary-600 transition-colors">
-              Select Date
-            </span>
-            <input
-              type="date"
-              className="rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-slate-900 shadow-sm transition-all focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 outline-none"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </div>
+          <DaySelector
+            value={date}
+            onChange={setDate}
+            options={dayOptions}
+          />
 
           <Button 
             variant="outline" 
@@ -209,18 +204,7 @@ export default function ReservationPage() {
               ))}
             </div>
           )}
-          
-          <div className="mt-8 rounded-2xl bg-primary-900 p-6 text-white shadow-xl shadow-primary-900/20">
-            <h4 className="flex items-center gap-2 font-bold mb-2">
-              <svg className="h-5 w-5 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Student Tip
-            </h4>
-            <p className="text-sm text-primary-100 leading-relaxed">
-              Remember to cancel your reservation at least 2 hours before serving time if you can't make it. This helps reduce food waste!
-            </p>
-          </div>
+
         </div>
       </div>
 

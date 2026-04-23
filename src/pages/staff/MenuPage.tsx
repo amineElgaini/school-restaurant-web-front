@@ -12,6 +12,8 @@ import MenuActionModal from "../../components/menu/MenuActionModal";
 import Badge from "../../components/ui/Badge";
 import toast from "react-hot-toast";
 
+import { getNextWeekWorkDays } from "../../utils/date";
+
 type MenuMeal = {
   id: number;
   meal_id: number;
@@ -19,31 +21,8 @@ type MenuMeal = {
   meal: Meal;
 };
 
-function getNextWeekDays() {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    month: "short",
-    day: "numeric",
-  });
-
-  const today = new Date();
-  const days: { label: string; value: string }[] = [];
-
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() + i);
-
-    const value = date.toISOString().split("T")[0];
-    const label = `${formatter.format(date)} (${value})`;
-
-    days.push({ label, value });
-  }
-
-  return days;
-}
-
 export default function MenuPage() {
-  const dayOptions = useMemo(() => getNextWeekDays(), []);
+  const dayOptions = useMemo(() => getNextWeekWorkDays(), []);
   const [selectedDate, setSelectedDate] = useState(dayOptions[0]?.value ?? "");
 
   const [meals, setMeals] = useState<Meal[]>([]);

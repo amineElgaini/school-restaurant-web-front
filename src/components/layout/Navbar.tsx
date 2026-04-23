@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
 import { hasPermission, hasRole } from "../../utils/permissions";
+import restaurantLogo from "../../assets/logo.png";
 import Button from "../ui/Button";
 
 type NavItem = {
@@ -13,6 +14,11 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   const navItems: NavItem[] = [
+    {
+      to: "/admin/statistics",
+      label: "Statistics",
+      show: hasRole(user, "admin"),
+    },
     {
       to: "/admin/users",
       label: "Users",
@@ -53,12 +59,14 @@ export default function Navbar() {
             to="/"
             className="group flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-900"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-600 text-white shadow-lg shadow-primary-500/20 group-hover:scale-105 transition-transform duration-200">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </div>
-            <span className="hidden sm:inline font-display">Cafeteria</span>
+            {/* <div className="flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-lg shadow-primary-500/20 group-hover:scale-105 transition-transform duration-200"> */}
+              <img
+                src={restaurantLogo}
+                alt="YouCode School Restaurant Logo"
+                style={{ width: "100px", height: "auto" }}
+              />
+            {/* </div> */}
+            <span className="hidden sm:inline font-display">DevDine</span>
           </NavLink>
 
           <nav className="hidden items-center gap-1 lg:flex">
@@ -89,7 +97,9 @@ export default function Navbar() {
                 {user.name?.charAt(0).toUpperCase()}
               </div>
               <div className="text-left">
-                <p className="text-sm font-bold text-slate-900 leading-none">{user.name}</p>
+                <p className="text-sm font-bold text-slate-900 leading-none">
+                  {user.name}
+                </p>
                 <p className="mt-1 text-xs font-medium capitalize text-slate-500">
                   {user.role?.name || "Student"}
                 </p>
@@ -97,14 +107,24 @@ export default function Navbar() {
             </div>
           )}
 
-          <Button 
-            variant="ghost" 
-            size="sm" 
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={logout}
             className="text-slate-500 hover:text-red-600 hover:bg-red-50"
           >
-            <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            <svg
+              className="mr-2 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
             </svg>
             Logout
           </Button>
