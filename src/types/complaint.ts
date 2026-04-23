@@ -2,6 +2,7 @@ export type ComplaintUser = {
   id: number;
   name: string;
   email: string;
+  image?: string;
 };
 
 export type Complaint = {

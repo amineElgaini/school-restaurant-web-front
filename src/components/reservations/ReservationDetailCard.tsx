@@ -1,5 +1,4 @@
 import Card from "../ui/Card";
-import Badge from "../ui/Badge";
 import type { UserReservationItem } from "../../types/staffReservation";
 
 type Props = {
