@@ -122,8 +122,8 @@ export default function StatisticsPage() {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {/* User Distribution Chart */}
+
+      {/* <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <Card className="p-6">
           <div className="mb-6 flex items-center justify-between">
             <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -160,7 +160,6 @@ export default function StatisticsPage() {
           </div>
         </Card>
 
-        {/* Complaint Status Chart */}
         <Card className="p-6">
           <div className="mb-6 flex items-center justify-between">
             <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -191,8 +190,8 @@ export default function StatisticsPage() {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </Card>
-      </div>
+        </Card>d
+      </div> */}
 
       {/* Recent Activity */}
       <Card className="overflow-hidden">
